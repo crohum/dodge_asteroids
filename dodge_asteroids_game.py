@@ -16,10 +16,10 @@ pygame.display.set_icon(icono)
 pygame.display.set_caption("Asteroid's Rain")
 
 
-# Musica de fondo  *** Pendiente buscar una rolita cumplidora ***
-#mixer.music.load('musica_fondo.mp3')
-#mixer.music.set_volume(0.5)
-#mixer.music.play(-1)
+# Musica de fondo
+mixer.music.load('assets/musica_fondo.mp3')
+mixer.music.set_volume(0.5)
+mixer.music.play(-1)
 
 
 # Poner el fondo
@@ -31,6 +31,7 @@ ancho = 1000
 alto = 800
 ventana = pygame.display.set_mode([ancho, alto])
 textos = pygame.font.SysFont('Comics Sans', 45)
+fuente_final = pygame.font.SysFont('Comics Sans', 60)
 
 # Estandarizamos la velocidad del juego sin importar que tan potente sea el ordenador
 fps = 60
@@ -48,7 +49,7 @@ tiempo_transcurrido = 0
 
 # Bloque de personaje
 nave = Ship(500, 400)
-vidas = 5
+vidas = 3
 puntaje = 0
 
 
@@ -76,12 +77,13 @@ def gestionar_teclas(teclas):
 
 # Funcion texto final del juego
 def texto_final():
-    mensaje_final = textos.render(' JUEGO TERMINADO', True, (255, 255, 255))
-    ventana.blit(mensaje_final, (80, 200))
+    mensaje_final = fuente_final.render(' JUEGO TERMINADO', True, (255, 255, 255))
+    ventana.blit(mensaje_final, (300, 300))
+    ventana.blit(texto_puntos, (400, 350))
 
 
 # Loop del juego
-while jugando and vidas > 0:
+while jugando and vidas >= 0:
 
     # Colocar la Imagen del fondo de pantalla
     ventana.blit(fondo, (0, 0))
@@ -152,5 +154,11 @@ while jugando and vidas > 0:
 # Fin del juego
 while se_ejecuta:
 
-texto_final()
-pygame.display.update()
+    eventos = pygame.event.get()
+
+    for evento in eventos:
+        if evento.type == pygame.QUIT:
+            se_ejecuta = False
+
+    texto_final()
+    pygame.display.update()

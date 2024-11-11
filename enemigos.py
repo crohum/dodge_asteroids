@@ -5,8 +5,8 @@ class Asteroid:
     def __init__(self, x, y):
         self.x = x
         self.y = y
-        self.ancho = 75
-        self.alto = 75
+        self.ancho = 60
+        self.alto = 60
         self.velocidad = 5
         self.color = 'purple'
         self.imagen = pygame.image.load('assets/asteroid.png')
